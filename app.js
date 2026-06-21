@@ -36,7 +36,7 @@ app.get("/success", (req, res) => {
   res.render("success");
 });
 
-const PORT = 8000;
+const PORT = PORT || 8000
 app.listen(PORT, (error) => {
   if (error) {
     console.log(error);
