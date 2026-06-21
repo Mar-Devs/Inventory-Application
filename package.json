@@ -7,7 +7,8 @@
     "test": "node --watch ./app.js",
     "build:css": "postcss ./src/public/index.css -o ./src/public/build.css --watch",
     "dev": "concurrently \"npm:build:css\" \"npm:test\"",
-    "tailwind": "npx @tailwindcss/cli -i ./src/public/index.css -o ./public/css/output.css --watch"
+    "tailwind": "npx @tailwindcss/cli -i ./src/public/index.css -o ./public/css/output.css --watch",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
