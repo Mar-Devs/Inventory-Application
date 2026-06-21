@@ -1,0 +1,35 @@
+{
+  "name": "attempt_no_1mil",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --watch ./app.js",
+    "build:css": "postcss ./src/public/index.css -o ./src/public/build.css --watch",
+    "dev": "concurrently \"npm:build:css\" \"npm:test\"",
+    "tailwind": "npx @tailwindcss/cli -i ./src/public/index.css -o ./public/css/output.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.3.1",
+    "@tailwindcss/vite": "^4.3.1",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "express-validator": "^7.3.2",
+    "pg": "^8.21.0",
+    "pg-format": "^1.0.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.1",
+    "autoprefixer": "^10.5.0",
+    "concurrently": "^10.0.3",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.5.15",
+    "postcss-cli": "^11.0.1",
+    "prettier": "^3.8.4",
+    "tailwindcss": "^4.3.1"
+  }
+}

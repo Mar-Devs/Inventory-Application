@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/build.css" />
+    <title>Add Item</title>
+  </head>
+  <body>
+    <!-- views/partials/errors.ejs -->
+<% if (locals.errors) {%>
+  <ul>
+    <% errors.forEach(function(error) { %>
+      <li class="text-white"><%= error.msg %></li>
+    <% }); %>
+  </ul>
+<% } %>
+<div class="flex justify-between text-white w-[100%]">
+  <a href="/" class="hover:translate-y-[10px] hover:opacity-[0.5] top-0 right-0 underline font-semibold text-white p-[1rem] m-[1rem] mb-0">Home</a>
+    <button id="add-btn" class="hover:translate-y-[10px] hover:opacity-[0.5] top-0 right-0 bg-white text-gray border-2 border-dashed p-[1rem] m-[1rem] mb-0">Add Items</button>
+    </div>
+    <form id="form-container" class="hidden text-white bg-gray inset-0 h-fit items-center justify-center gap-[1rem] w-fit p-[1rem] border-solid border-2 z-999 fixed m-auto" action="/create" method="POST">
+      <div class="flex justify-end w-[100%]">
+        <img id="close" class="hover:opacity-[0.5]" src="/close_icon_(2).svg" alt="close" />
+      </div>
+      <div class="flex flex-col">
+        <label for="category">Category:</label>
+        <select class="text-white" name="category" id="category">
+          <option class="text-gray padding-[0.2rem]" value="">--Select Category--</option>
+          <option class="text-gray" value="weaponry">Weaponry</option>
+          <option class="text-gray" value="armor">Armor</option>
+          <option class="text-gray" value="food">Food</option>
+          <option class="text-gray" value="first-aid">First-Aid</option>
+        </select>
+      </div>
+      <div class="flex flex-col">
+        <label for="item-type">Name:</label>
+        <input class="border-2 border-dashed border-gray bg-white text-grayDark" type="text" name="item-type" />
+      </div>
+      <div class="flex flex-col">
+        <label for="quantity">Quantity</label>
+        <input class="border-2 border-dashed border-gray bg-white text-grayDark" type="text" name="quantity" id="quantity" />
+      </div>
+      <div class="flex justify-center items-center pt-[0.5rem] w-[100%]">
+        <button class="bg-white text-grayDark w-[100%] hover:translate-y-[10px] hover:opacity-[0.5]" type="submit">ADD</button>
+      </div>
+    </form>
+    <script>
+      const closeBtn = document.querySelector("#close");
+      const formDiv = document.querySelector("#form-container");
+      const addBtn = document.querySelector("#add-btn");
+      
+      addBtn.addEventListener("click", ()=>{
+        formDiv.style.display = "block"
+      })
+
+      closeBtn.addEventListener("click",()=>{
+        formDiv.style.display = "none"
+      })
+    </script>
+  </body>
+</html>

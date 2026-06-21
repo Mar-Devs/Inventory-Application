@@ -1,0 +1,36 @@
+@import "tailwindcss";
+@source "../view/index.ejs";
+
+@theme {
+  --color-gray: #2b2f3b;
+  --color-grayDark: #3c424e;
+  --color: white: #ffffff;
+}
+
+@font-face {
+  font-family: "EduTASBeg";
+  src: url("/EduTASBeginner-VariableFont_wght.ttf");
+}
+
+
+html {
+  font-size: clamp(16px, 20px, 24px);
+  font-family: "EduTASBeg";
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: auto;
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-gray);
+
+  display: flex;
+  flex-direction: column;
+}
+
+#edit-div{
+  display: none;
+}
+

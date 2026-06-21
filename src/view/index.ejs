@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/build.css" />
+    <title>Document</title>
+  </head>
+  <body>
+      <div class="bg-gray h-[100vh] w-[100%] flex flex-col items-center gap-[1rem] text-white p-[1rem]">
+        <%- include('create') %>
+        <div class="text-center">
+          <h1 class="text-[2rem] underline mb-[0.5rem]">The Resistance</h1>
+          <p class="text-[1.2rem]">
+            This interface tracks all aid the resistance obtains- donations and
+            interceptions alike. Upon obtaining a new item, kindly add it to the
+            inventory records.
+          </p>
+          <p class="text-[1rem]">
+            Note: The categories of aid are detemrined by the sergeant. 
+          </p>
+        </div>
+        <div class="grid grid-cols-2 grid-rows-2 gap-1 p-[1rem]">
+         <% for(let i=0; i < arr.length; i++){ %>
+          <% let temp = arr[i]["category"] %>
+          <% temp = temp.toLowerCase() %>
+          <a href="categories/<%= temp %>">
+          <div class="flex flex-col items-center hover:translate-y-[-10px]">
+          <div class="border-2 border-white">
+          <img class="h-[12rem] w-[12rem]" src="<%= imageArray[i] %>" alt="weapons">
+          </div>
+          <h6> <%= arr[i]["category"] %></h6>
+          </div>
+          </a>
+          
+          <% }  %>
+          </div>
+        
+          
+        </div>
+      </div>
+  </body>
+</html>
+
+

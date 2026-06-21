@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/build.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <%- include('create') %>
+    <div class="text-white flex flex-col">
+      <h1 class="text-[2rem] pl-[2rem] pt-[1rem] m-0 mb-[0.5rem] underline text-semibold"><%= cat %>:</h1>
+      <p class="text-[1rem] pl-[2rem] m-0 mb-[1rem]  text-semibold">Note: A category cannot have less than three items.</p>
+    </div>
+    <div class="flex flex-col h-[100vh] pl-[2rem] gap-[1rem]">
+    <% content.forEach((m) =>{ %>
+  
+        <div class="flex flex-wrap bg-grayDark p-[1rem] gap-[1rem] text-white border-b-2 border-white w-[80%]">
+            <div class="flex items-center">
+                <img id="edit-btn" class=" pl-[0.5rem] hover:translate-y-[5px]" src="/edit_icon.svg" alt="edit">
+                <div id="edit-div" class="text-white bg-gray inset-0 h-fit flex flex-col items-center justify-center gap-[1rem] w-fit pr-[2rem] pl-[2rem] pb-[2rem] border-solid border-2 z-999 fixed m-auto">
+         <img
+          id="close-icon"
+          class="self-end mr-[-2rem] h-[2rem] w-[2rem] pt-[0.1rem] hover:opacity-[0.5]"
+          src="/close_icon_(2).svg"
+          alt="close"
+        />
+        <h6 id="item-name" data-name="<%= m[0] %>" class="text-[2rem] underline"><%= m[1] %></h6>
+        <form class="flex gap-[0.5rem] items-center justify-center" action="/" method="POST">
+          <label class="font-semibold">
+            <span class="underline">Quantity:</span>
+          </label>
+          <div class="flex items-center justify-center gap-[2px]">
+            <div class="bg-grayDark p-[0.5rem] border-dashed border-2">
+              <input type="text" class="hidden" name="id" value="<%= m[0] %>">
+              <input type="text" class="hidden" name="category" value="<%= cat %>">
+              <input id="quantity" name="quantity" type="text" pattern="[0-9]*" class="text-center" value="<%= m[2] %>"/>
+            </div>
+          </div>
+        
+        <button type="submit" id="submit-btn", quantity.value)" class=" hover:translate-y-[5px] pt-[0.2rem] pb-[0.2rem] pl-[2rem] pr-[2rem] w-[100%] bg-white text-grayDark font-bold">
+          Save
+        </button>
+        </form>
+    </div>
+            </div>
+            <div class="flex">
+                <div class="flex justify-center items-center gap-[1rem] p-[1rem] text-[1rem]">
+                    <div class="flex items-end justify-center">
+                        <h6 class="text-semibold"><span class="underline">Name</span>:</h6>
+                        <p>&nbsp;<%= m[1] %></p>
+                    </div>
+                    <div class="flex">
+                        <h6><span class="underline">Quantity</span>:</h6>
+                        <p>&nbsp;<%= m[2]%></p>
+                    </div>
+                </div>
+            </div>
+            <form class="flex justify-end items-center w-[100%] hover:translate-y-[10px]" action="/categories/<%= cat %>?_method=DELETE" method="POST">
+              <input type="text" name="category" id="category" class="hidden" value="<%= cat %>">
+              <input type="text" name="id" id="id" class="hidden" value="<%= m[0] %>">
+              <button type="submit">
+            <img id="delete-icon" src="/delete_icon.svg" alt="delete">
+            </button>
+          </form>
+        </div>
+        
+   <% }) %>
+
+    
+    
+    </div>
+    <script>
+      const btn = document.querySelectorAll("#edit-btn")
+      const btnArr = []
+      const div = document.querySelectorAll("#edit-div")
+      const divArr = []
+      const closeIcon = document.querySelectorAll("#close-icon");
+      const closeArr = []
+      const deleteIcon = document.querySelectorAll("#delete-icon");
+      const deleteIconArr = []
+      deleteIcon.forEach((m) =>{
+        deleteIconArr.push(m)
+      })
+  
+      closeIcon.forEach((m) =>{
+        closeArr.push(m)
+      })
+      btn.forEach((m)=>{
+        btnArr.push(m)
+      })
+      div.forEach((m) =>{
+        divArr.push(m)
+      })
+      for(let i = 0; i < btnArr.length; i++){
+        let temp = btnArr[i]
+        temp.addEventListener("click",()=>{
+          let temp2 = divArr[i]
+          temp2.style.display = "flex"
+        })
+        let temp3 = closeArr[i]
+        temp3.addEventListener("click",()=>{
+           let temp2 = divArr[i]
+          temp2.style.display = "none"
+        })
+      }
+
+      async function getData(id,tableName,quantity){
+        const res = await fetch('/controller/categoriesRouter.js', {
+          method: 'POST',
+          headers:{'Content-Type': 'application/json'},
+          body: JSON.stringify({id,tableName,quantity})
+        })
+        if(!res.ok) throw new Error('request failed');
+        return res.json();
+
+      }
+
+      const submitBtn = document.querySelectorAll("#submit-btn")
+      const submitBtnArr = []
+      const nameElement = document.querySelectorAll("#item-name")
+      const nameElementArr = []
+      const inputElement = document.querySelectorAll("#quantity")
+      const inputElementArr = []
+      inputElement.forEach((m) =>{
+        inputElementArr.push(m)
+      })
+      nameElement.forEach((m) =>{
+        nameElementArr.push(m)
+      })
+      submitBtn.forEach((m) =>{
+        submitBtnArr.push(m)
+      })
+      for(let i =0; i < submitBtnArr.length; i++){
+        let temp = submitBtnArr[i]
+        temp.addEventListener("click",()=>{
+          const id = nameElementArr[i].dataset.name
+          const quantity = inputElementArr[i].value
+          const tableName = "weaponry"
+
+          getData(id,quantity,tableName)
+          console.log(`Id: ${id} , quantity: ${quantity}`)
+        })
+      }
+
+      for(let i =0; i < deleteIconArr.length; i++){
+        let temp = deleteIconArr[i]
+        temp.addEventListener("click",()=>{
+          
+        })
+      }
+    </script>
+  </body>
+</html>
