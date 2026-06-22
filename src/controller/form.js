@@ -8,7 +8,7 @@ const numErr = "must only contain numbers."
 
 const validateUser = [
     body("item-type").trim().notEmpty().withMessage(`Item type ${notEmpty}`).bail()
-    .isAlpha().withMessage(`Item name ${alphaErr}`).bail()
+    .isAlpha('en-US',{ignore: ' '}).withMessage(`Item name ${alphaErr}`).bail()
     .isLength({min:3}).withMessage(`Item name ${lengthErr}`),
 
     body("quantity").trim().notEmpty().withMessage(`Quantity ${notEmpty}`).bail()

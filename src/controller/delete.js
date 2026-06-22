@@ -8,12 +8,12 @@ exports.deleteItem = [
  async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).render("category.ejs", {
+      return res.status(400).render("category", {
         title: "Delete Item",
         errors: errors.array(),
       });
     } else {
-      const { category, id } = matchedData(req);
+        const { category, id } = matchedData(req);
       const itemCount = await q.getData(category);
       console.log(`This is item count: ${itemCount}`)
       if (itemCount.length <= 3) {

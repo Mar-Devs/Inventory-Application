@@ -28,7 +28,6 @@ exports.updateItem = [
             })
         }
         else{
-        const {quantity , id, category} = matchedData(req)
         q.alterItems(category,quantity, id)
         res.redirect(`/categories/${category}`)
         }
